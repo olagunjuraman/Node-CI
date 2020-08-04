@@ -6,7 +6,7 @@ name: Node Github CI
 on:
   push:
     branches:
-      - master
+      - staging
       
 
 jobs:
@@ -39,13 +39,13 @@ jobs:
     - name: SSH and deploy node app
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.SSH_HOST }}
+        host: ${{ secrets.SSH_HOSTDEV }}
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.SSH_PORT }}
         script: |
           cd ~/Node-CI
-          git pull origin master
+          git pull origin staging
           npm install --production
           pm2 restart server
 
